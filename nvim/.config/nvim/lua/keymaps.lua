@@ -5,6 +5,7 @@ vim.keymap.set({ "n", "v" }, "Y", '"+yy', { desc = "Y = yy" })
 vim.keymap.set({ "n", "v" }, "y", '"+y', { desc = "Yank to system clipboard" })
 
 -- Paste from system clipboard in Normal and Visual modes
+vim.keymap.set({ "n", "v" }, "P", '"+P', { desc = "Paste from system clipboard" })
 vim.keymap.set({ "n", "v" }, "p", '"+p', { desc = "Paste from system clipboard" })
 
 -- Delete to system clipboard in Normal and Visual modes
@@ -33,3 +34,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Remap ctrl+c to esc for same behaviour
 vim.keymap.set("i", "<C-c>", "<Esc>", { noremap = true })
+
+vim.keymap.set("n", "<leader>ur", function()
+    vim.wo.relativenumber = not vim.wo.relativenumber
+end, { desc = "Toggle relative line numbers" })
