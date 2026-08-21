@@ -3,7 +3,7 @@ return {
   event = "VeryLazy",
   opts = {
     preset = "modern",
-    delay = 300,
+    delay = 100,
     spec = {
       { "<leader>c", group = "Code" },
       { "<leader>d", group = "Diagnostics" },
