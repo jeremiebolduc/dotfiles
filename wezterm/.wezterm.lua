@@ -16,7 +16,7 @@ config.color_scheme = 'Moonfly (Gogh)'
 
 config.font_size = 15.0
 config.font = wezterm.font {
-    family = 'JetBrains Mono',
+    family = 'JetBrainsMono Nerd Font',
     weight = 500,
     italic = false,
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
