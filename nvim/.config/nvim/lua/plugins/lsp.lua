@@ -1,5 +1,20 @@
+local lsp = require("lsp")
+
 return {
-	{ "williamboman/mason.nvim", config = true },
-	{ "williamboman/mason-lspconfig.nvim" },
-	{ "neovim/nvim-lspconfig" },
+	{
+		"mason-org/mason-lspconfig.nvim",
+		dependencies = {
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
+			"hrsh7th/cmp-nvim-lsp",
+		},
+		opts = {
+			ensure_installed = lsp.servers,
+			-- Restrict automatic activation to the servers this config owns.
+			automatic_enable = lsp.servers,
+		},
+		config = function(_, opts)
+			lsp.setup(opts)
+		end,
+	},
 }

@@ -1,1 +1,23 @@
-return { "folke/which-key.nvim", lazy = true }
+return {
+	"folke/which-key.nvim",
+	event = "VeryLazy",
+	opts = {
+		preset = "modern",
+		delay = 300,
+		spec = {
+			{ "<leader>c", group = "Code" },
+			{ "<leader>d", group = "Diagnostics" },
+			{ "<leader>f", group = "Find" },
+			{ "<leader>l", group = "Tools" },
+		},
+	},
+	keys = {
+		{
+			"<leader>?",
+			function()
+				require("which-key").show({ global = false })
+			end,
+			desc = "Buffer-local keymaps",
+		},
+	},
+}
