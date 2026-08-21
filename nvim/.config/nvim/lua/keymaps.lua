@@ -35,6 +35,8 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- Remap ctrl+c to esc for same behaviour
 vim.keymap.set("i", "<C-c>", "<Esc>", { noremap = true })
 
+-- Toggle relative line number
 vim.keymap.set("n", "<leader>ur", function()
     vim.wo.relativenumber = not vim.wo.relativenumber
 end, { desc = "Toggle relative line numbers" })
+

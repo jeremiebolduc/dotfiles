@@ -10,6 +10,7 @@ return {
       { "<leader>f", group = "Find" },
       { "<leader>g", group = "Git" },
       { "<leader>u", group = "UI" },
+      { "<leader>t", group = "Test" },
     },
   },
   keys = {
