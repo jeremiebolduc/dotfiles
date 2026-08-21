@@ -9,9 +9,11 @@ local workspace_manager = wezterm.plugin.require(
 -- Styles
 -- config.color_scheme = 'Dracula'
 -- config.color_scheme = 'Kanagawa (Gogh)'
-config.color_scheme = 'Tokyo Night'
+-- config.color_scheme = 'Tokyo Night'
 -- config.color_scheme = 'Catppuccin Mocha'
 -- config.color_scheme = 'nightfox'
+config.color_scheme = 'Moonfly (Gogh)'
+
 config.font_size = 15.0
 config.font = wezterm.font {
     family = 'JetBrains Mono',
