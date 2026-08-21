@@ -1,0 +1,114 @@
+set ideavimsupport=dialog
+
+" Set leader to space
+let mapleader = " "
+
+" Yank to system clipboard
+nnoremap yy "+yy
+nnoremap Y "+yy
+vnoremap Y "+yy
+nnoremap y  "+y
+vnoremap y  "+y
+
+" Paste from system clipboard
+nnoremap p  "+p
+vnoremap p  "+p
+
+" Delete to system clipboard
+nnoremap dd  "+dd
+nnoremap D  "+dd
+vnoremap D  "+dd
+nnoremap d  "+d
+vnoremap d  "+d
+
+" Recenter half-page scrolling
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+" RecenterSearch results
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Move selected lines
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Relative line numbers
+set relativenumber
+nnoremap <Leader>ur :set relativenumber!<CR>
+
+" Code format
+nmap <Leader>cf <action>(ReformatCode)
+" Code action
+nmap <Leader>ca <action>(ShowIntentionActions)
+xmap <Leader>ca <action>(ShowIntentionActions)
+nnoremap <Leader>rn :action RenameElement<cr>
+
+" Fuzzier extension
+" Find files
+nmap <Leader>ff <action>(com.mituuz.fuzzier.search.Fuzzier)
+" Find with grep
+nmap <Leader>fg <action>(com.mituuz.fuzzier.grep.FuzzyGrepCI)
+nmap <Leader>fG <action>(com.mituuz.fuzzier.grep.FuzzyGrep)
+" Find in tabs
+nmap <Leader>ft <action>(com.mituuz.fuzzier.grep.FuzzyGrepOpenTabsCI)
+nmap <Leader>fT <action>(com.mituuz.fuzzier.grep.FuzzyGrepOpenTabs)
+" Find in buffer
+nmap <Leader>fb <action>(com.mituuz.fuzzier.grep.FuzzyGrepCurrentBufferCI)
+nmap <Leader>fB <action>(com.mituuz.fuzzier.grep.FuzzyGrepCurrentBuffer)
+" Find symbols
+nmap <Leader>fs <action>(SearchEverywhere)
+" Find VCS
+nmap <Leader>fv <action>(com.mituuz.fuzzier.search.FuzzierVCS)
+" Find references
+nmap <Leader>fr <action>(FindUsages)
+
+" LSP / code navigation
+nmap gi <action>(GotoImplementation)
+" Declarations
+nmap gd <action>(GotoDeclaration)
+nmap gt <action>(GotoTypeDeclaration)
+" Call hierarchy
+nmap gO <action>(CallHierarchy)
+nmap gI <action>(CallHierarchy)
+
+" Flash extension
+nmap s <action>(flash.search)
+xmap s <action>(flash.search)
+
+" Harpooner extension
+nmap hh <action>(HarpoonerToggleFile)
+
+nmap ; <action>(HarpoonerToggleMenu)
+
+nmap 1 <action>(HarpoonerOpenFile0)
+nmap 2 <action>(HarpoonerOpenFile1)
+nmap 3 <action>(HarpoonerOpenFile2)
+nmap 4 <action>(HarpoonerOpenFile3)
+nmap 5 <action>(HarpoonerOpenFile4)
+
+" nmap <leader>hn <action>(HarpoonerOpenNextFile)
+" nmap <leader>hp <action>(HarpoonerOpenPreviousFile)
+"
+" nmap <leader>hc <action>(HarpoonerClearMenu)
+
+" Dial extension
+set dial
+" Enable multiple groups
+let g:dial_include = "basic,numbers,dates"
+nnoremap <C-a> :DialIncrement<cr>
+nnoremap <C-x> :DialDecrement<cr>
+
+" Which Key Lazy extension
+" Enable the which-key popup
+set which-key
+" Disable timeout so the popup stays open
+set notimeout
+
+" Highlightedyank plugin
+Plug 'machakann/vim-highlightedyank'
+set highlightedyank
+let g:highlightedyank_highlight_duration = 200
+
+" Commentary extension
+set commentary
