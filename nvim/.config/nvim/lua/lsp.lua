@@ -9,7 +9,7 @@ M.servers = {
 	"gopls",
 	"roslyn_ls",
   "yamlls",
-  "terraform-ls"
+  "terraformls"
 }
 
 function M.setup(mason_opts)
