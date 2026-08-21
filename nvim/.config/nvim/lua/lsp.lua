@@ -8,6 +8,8 @@ M.servers = {
 	"rust_analyzer",
 	"gopls",
 	"roslyn_ls",
+  "yamlls",
+  "terraform-ls"
 }
 
 function M.setup(mason_opts)
