@@ -2,13 +2,16 @@ local wezterm = require('wezterm')
 local config = wezterm.config_builder()
 local act = wezterm.action
 local mux = wezterm.mux
+local workspace_manager = wezterm.plugin.require(
+    'https://github.com/ryanmsnyder/workspace-manager.wezterm'
+)
 
 -- Styles
 -- config.color_scheme = 'Dracula'
 -- config.color_scheme = 'Kanagawa (Gogh)'
--- config.color_scheme = 'Tokyo Night'
+config.color_scheme = 'Tokyo Night'
 -- config.color_scheme = 'Catppuccin Mocha'
-config.color_scheme = 'nightfox'
+-- config.color_scheme = 'nightfox'
 config.font_size = 15.0
 config.font = wezterm.font {
     family = 'JetBrains Mono',
@@ -50,15 +53,24 @@ config.unix_domains = {
     },
 }
 
--- session saving
-local session_manager = require('wezterm-session-manager/session-manager')
-
--- plugin to replace eventually
-wezterm.on("save_session", function(window) session_manager.save_state(window) end)
-wezterm.on("load_session", function(window) session_manager.load_state(window) end)
-wezterm.on("restore_session", function(window) session_manager.restore_state(window) end)
+-- Persist workspace layouts, tabs, panes, working directories and scrollback.
+-- Saved state lives in ~/.local/share/wezterm/workspace_state/.
+workspace_manager.session_enabled = true
+workspace_manager.session_restore_on_startup = true
+workspace_manager.session_periodic_save_interval = 300
+workspace_manager.session_periodic_save_all = true
+workspace_manager.session_max_scrollback_lines = 1000
+workspace_manager.zoxide_path = '/opt/homebrew/bin/zoxide'
+workspace_manager.notifications_enabled = true
+-- Persist the built-in workspace too; it is where WezTerm starts by default.
+workspace_manager.session_exclude_workspaces = {}
 
 wezterm.on("update-right-status", function(window, pane)
+    if window:active_key_table() == "workspace_switcher_actions" then
+        window:set_right_status(workspace_manager.get_switcher_legend())
+        return
+    end
+
     local workspace = mux.get_active_workspace()
     local scheme = window:effective_config().resolved_palette
 
@@ -74,6 +86,11 @@ config.leader = {
     mods = 'CTRL',
     timeout_milliseconds = 2000,
 }
+
+-- Register workspace persistence and the switcher's internal key table. The
+-- custom bindings below replace the plugin defaults to preserve this config's
+-- tmux-style shortcuts.
+workspace_manager.apply_to_config(config)
 
 config.keys = {
     {
@@ -190,7 +207,7 @@ config.keys = {
     {
         key = 's',
         mods = 'LEADER',
-        action = act.ShowLauncherArgs({ flags = 'WORKSPACES' }),
+        action = workspace_manager.workspace_switcher(),
     },
     -- Close all tabs in active workspace -> close workspace
     {
@@ -211,17 +228,17 @@ config.keys = {
     {
         key = 's',
         mods = 'LEADER|SHIFT',
-        action = act({ EmitEvent = "save_session" }),
+        action = workspace_manager.save_workspace(),
     },
     {
         key = 'l',
         mods = 'LEADER|SHIFT',
-        action = act({ EmitEvent = "load_session" }),
+        action = workspace_manager.workspace_switcher(),
     },
     {
         key = 'r',
         mods = 'LEADER|SHIFT',
-        action = act({ EmitEvent = "restore_session" }),
+        action = workspace_manager.workspace_switcher(),
     },
     {
         key = 'h',
